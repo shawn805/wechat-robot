@@ -1,0 +1,21 @@
+{
+    "name": "shawn805/wechat-robot",
+    "description": "qiye-wechat notify",
+    "keywords": ["laravel","lumen","wechat","wechat-robot"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shawn",
+            "email": "shawn805@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shawn\\WeChatRobot\\": "src/"
+        }
+    }
+}

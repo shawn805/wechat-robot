@@ -15,22 +15,35 @@ class WeChatRobot
     /**
      * @var array
      */
-    protected $mobiles;
+    protected $mobiles = [];
     /**
      * @var bool
      */
-    protected $atAll;
+    protected $atAll = true;
 
     /**
      * WeChatRobot constructor.
      * @param $config $atAll $mobiles
      */
-    public function __construct($config, $atAll = true, $mobiles = [])
+    public function __construct(string $token, float $timeout = 3.0, bool $verify = true)
     {
-        $this->config = $config;
+        $this->config = array(
+            'token'   => $token,
+            'timeout' => $timeout,
+            'verify'  => $verify,
+        );
+        $this->init();
+    }
+
+    /**
+     * @param bool $atAll
+     * @param array $mobiles
+     * @return mixed
+     */
+    public function atSet(bool $atAll = true, array $mobiles = [])
+    {
         $this->atAll = $atAll;
         $this->mobiles = $mobiles;
-        $this->init();
     }
 
     /**
@@ -46,7 +59,7 @@ class WeChatRobot
      * @param string $content
      * @return mixed
      */
-    public function text($content = '')
+    public function text(string $content = '')
     {
         return $this->weChatRobotService
             ->setTextMessage($content)
@@ -54,10 +67,7 @@ class WeChatRobot
     }
 
     /**
-     * @param $title
-     * @param $description
-     * @param $url
-     * @param string $picUrl
+     * @param array $articles
      * @return mixed
      */
     public function imageText(array $articles)
@@ -68,24 +78,13 @@ class WeChatRobot
     }
 
     /**
-     * @param $markdown
+     * @param string $markdown
      * @return mixed
      */
-    public function markdown($markdown)
+    public function markdown(string $markdown)
     {
         return $this->weChatRobotService
             ->setMarkdownMessage($markdown)
-            ->send();
-    }
-
-    /**
-     * @param $markdown
-     * @return mixed
-     */
-    public function recordException($markdown)
-    {
-        return $this->weChatRobotService
-            ->setExceptionMessage($markdown)
             ->send();
     }
 

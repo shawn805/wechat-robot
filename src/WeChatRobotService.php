@@ -69,10 +69,7 @@ class WeChatRobotService
     }
 
     /**
-     * @param $title
-     * @param $description
-     * @param $url
-     * @param string $picUrl
+     * @param $articles
      * @return mixed
      */
     public function setImageTextMessage(array $articles)

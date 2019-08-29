@@ -15,7 +15,7 @@ class ImageText extends Message
         $this->message = [
             'msgtype' => 'news',
             'news'    => [
-                'articles' => $articles
+                'articles' => [$articles]
             ]
         ];
     }

@@ -61,11 +61,11 @@ class HttpClient
     public function send($params): array
     {
         $request = $this->client->post($this->getRobotUrl(), [
-            'body' => json_encode($params),
+            'body'    => json_encode($params),
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
-            'verify' => $this->config['verify'] ?? true
+            'verify'  => $this->config['verify'] ?? true
         ]);
 
         $result = $request->getBody()->getContents();

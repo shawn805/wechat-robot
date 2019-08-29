@@ -8,20 +8,39 @@ $ composer require shawn805/wechat-robot
 
 ## 使用方法
  
----|---|
 ```php
-$weChat = new WeChatRobot(array $config, bool $atAll, array $mobiles);
+实例 
+/**
+  * @param string $token    必填参数
+  * @param string $timeout    可选
+  * @param string $verify    可选   
+*/
+$weChat = new WeChatRobot(string $token, float $timeout = 3.0, bool $verify = true);
+
+发送文本类型
+/**
+  * @param string $content     消息内容
+*/
+$weChat->text(string $content);
+
+markdown类型
+/**
+  * @param string $markdown     markdown内容
+*/
+$weChat->markdown(string $markdown);
+
+图文类型
+/**
+  * @param array $articles     图文信息数组
+*/
+$articles = [
+    "title" : "标题",
+    "description" : "标题",
+    "url" : "点击后跳转的链接",
+    "picurl" : "图文消息的图片链接"  
+];
+$weChat->imageText($articles);
 ```
-## Contributing
-
-You can contribute in one of three ways:
-
-1. File bug reports using the [issue tracker](https://github.com/shawn805/wechat-robot/issues).
-2. Answer questions or fix bugs on the [issue tracker](https://github.com/shawn805/wechat-robot/issues).
-3. Contribute new features or update the wiki.
-
-_The code contribution process is not very formal. You just need to make sure that you follow the PSR-0, PSR-1, and PSR-2 coding guidelines. Any new code contributions must be accompanied by unit tests where applicable._
-
 ## License
 
 MIT

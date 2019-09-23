@@ -23,15 +23,18 @@ class WeChatRobot
 
     /**
      * WeChatRobot constructor.
-     * @param $config $atAll $mobiles
+     * @param string $atAll $mobiles
+     * @param array $atAll $mobiles
+     * @param bool $atAll
      */
-    public function __construct(string $token, float $timeout = 3.0, bool $verify = true)
+    public function __construct($token, $mobile = [], $all = false)
     {
         $this->config = array(
             'token'   => $token,
-            'timeout' => $timeout,
-            'verify'  => $verify,
+            'timeout' => env('ROBOT_TIMEOUT',2),
+            'verify'  => env('ROBOT_VERIFY',false)
         );
+        $this->atSet($all, $mobile);
         $this->init();
     }
 
@@ -40,7 +43,7 @@ class WeChatRobot
      * @param array $mobiles
      * @return mixed
      */
-    public function atSet(bool $atAll = true, array $mobiles = [])
+    public function atSet($atAll = true, $mobiles = [])
     {
         $this->atAll = $atAll;
         $this->mobiles = $mobiles;
@@ -59,7 +62,7 @@ class WeChatRobot
      * @param string $content
      * @return mixed
      */
-    public function text(string $content = '')
+    public function text($content = '')
     {
         return $this->weChatRobotService
             ->setTextMessage($content)
@@ -70,7 +73,7 @@ class WeChatRobot
      * @param array $articles
      * @return mixed
      */
-    public function imageText(array $articles)
+    public function imageText($articles)
     {
         return $this->weChatRobotService
             ->setImageTextMessage($articles)
@@ -81,7 +84,7 @@ class WeChatRobot
      * @param string $markdown
      * @return mixed
      */
-    public function markdown(string $markdown)
+    public function markdown($markdown)
     {
         return $this->weChatRobotService
             ->setMarkdownMessage($markdown)

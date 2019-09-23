@@ -72,7 +72,7 @@ class WeChatRobotService
      * @param $articles
      * @return mixed
      */
-    public function setImageTextMessage(array $articles)
+    public function setImageTextMessage($articles)
     {
         $this->message = new ImageText($articles);
         $this->message->sendAt($this->mobiles, $this->atAll);

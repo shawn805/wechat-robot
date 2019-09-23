@@ -30,7 +30,7 @@ class HttpClient
      */
     public function setAccessToken()
     {
-        $this->accessToken = $this->config['token'] ?? '';
+        $this->accessToken = $this->config['token'];
     }
 
     /**
@@ -40,7 +40,7 @@ class HttpClient
     protected function createClient()
     {
         $client = new Client([
-            'timeout' => $this->config['timeout'] ?? 3.0,
+            'timeout' => $this->config['timeout'],
         ]);
         return $client;
     }
@@ -58,14 +58,14 @@ class HttpClient
      * @param $params
      * @return array
      */
-    public function send($params): array
+    public function send($params)
     {
         $request = $this->client->post($this->getRobotUrl(), [
             'body'    => json_encode($params),
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
-            'verify'  => $this->config['verify'] ?? true
+            'verify'  => $this->config['verify']
         ]);
 
         $result = $request->getBody()->getContents();

@@ -2,10 +2,10 @@
 
 namespace Shawn\WeChatRobot;
 
-use Shawn\WeChatRobot\ImageText;
-use Shawn\WeChatRobot\Markdown;
-use Shawn\WeChatRobot\Message;
-use Shawn\WeChatRobot\Text;
+use Shawn\WeChatRobot\Messages\ImageText;
+use Shawn\WeChatRobot\Messages\Markdown;
+use Shawn\WeChatRobot\Messages\Message;
+use Shawn\WeChatRobot\Messages\Text;
 use GuzzleHttp\Client;
 
 class WeChatRobotService

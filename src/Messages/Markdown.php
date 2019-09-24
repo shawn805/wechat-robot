@@ -1,6 +1,6 @@
 <?php
 
-namespace Shawn\WeChatRobot;
+namespace Shawn\WeChatRobot\Messages;
 
 class Markdown extends Message
 {

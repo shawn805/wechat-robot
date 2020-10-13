@@ -23,18 +23,18 @@ class WeChatRobot
 
     /**
      * WeChatRobot constructor.
-     * @param string $atAll $mobiles
-     * @param array $atAll $mobiles
+     * @param string $token
+     * @param array $mobiles
      * @param bool $atAll
      */
-    public function __construct($token, $mobile = [], $all = false)
+    public function __construct($token, $mobile = [], $atAll = false)
     {
         $this->config = array(
             'token'   => $token,
-            'timeout' => env('ROBOT_TIMEOUT',2),
-            'verify'  => env('ROBOT_VERIFY',false)
+            'timeout' => env('ROBOT_TIMEOUT', 2),
+            'verify'  => env('ROBOT_VERIFY', false)
         );
-        $this->atSet($all, $mobile);
+        $this->atSet($atAll, $mobile);
         $this->init();
     }
 
@@ -45,7 +45,7 @@ class WeChatRobot
      */
     public function atSet($atAll = true, $mobiles = [])
     {
-        $this->atAll = $atAll;
+        $this->atAll   = $atAll;
         $this->mobiles = $mobiles;
     }
 
@@ -88,6 +88,17 @@ class WeChatRobot
     {
         return $this->weChatRobotService
             ->setMarkdownMessage($markdown)
+            ->send();
+    }
+
+    /**
+     * @param string $path
+     * @return mixed
+     */
+    public function file($path)
+    {
+        return $this->weChatRobotService
+            ->setFileMessage($path)
             ->send();
     }
 

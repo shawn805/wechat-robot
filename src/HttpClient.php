@@ -8,15 +8,23 @@ class HttpClient
 {
     protected $client;
     protected $config;
-    /**
-     * @var string
-     */
-    protected $hookUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=";
 
     /**
      * @var string
      */
-    protected $accessToken = "";
+    protected $hookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=';
+
+    /**
+     * @var string
+     */
+    protected $hookFileUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key={token}&type=file';
+
+    /**
+     * @var string
+     */
+    protected $accessToken = '';
+
+    public $fileId = '';
 
     public function __construct($config)
     {
@@ -26,7 +34,7 @@ class HttpClient
     }
 
     /**
-     *
+     * @return string
      */
     public function setAccessToken()
     {
@@ -51,6 +59,35 @@ class HttpClient
     public function getRobotUrl()
     {
         return $this->hookUrl . $this->accessToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRobotFileUrl()
+    {
+        return str_replace('{token}', $this->accessToken, $this->hookFileUrl);
+    }
+
+    /**
+     * send file
+     * @param $path
+     * @return string
+     */
+    public function getFileMediaId($path)
+    {
+        $response     = $this->client->request('POST', $this->getRobotFileUrl(), [
+            'multipart' => [
+                [
+                    'name'     => 'file_name',
+                    'contents' => fopen($path, 'r')
+                ]
+            ]
+        ]);
+        $result       = $response->getBody()->getContents();
+        $result       = json_decode($result, true);
+        $mediaId      = !empty($result['media_id']) ? $result['media_id'] : '';
+        $this->fileId = $mediaId;
     }
 
     /**

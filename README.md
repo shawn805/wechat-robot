@@ -12,10 +12,10 @@ $ composer require shawn805/wechat-robot
 实例 
 /**
   * @param string $token    必填参数
-  * @param string $timeout    可选
-  * @param string $verify    可选   
+  * @param array $mobile    可选,需要@的手机号码
+  * @param bool $atAll  可选,是否需要@所有人  
 */
-$weChat = new WeChatRobot(string $token, float $timeout = 3.0, bool $verify = true);
+$weChat = new WeChatRobot(string $token, array $mobile = [], bool $atAll = true);
 
 发送文本类型
 /**
@@ -29,6 +29,12 @@ markdown类型
 */
 $weChat->markdown(string $markdown);
 
+发送文件
+/**
+  * @param string $path     文件路径
+*/
+$weChat->file(string $path);
+
 图文类型
 /**
   * @param array $articles     图文信息数组
@@ -39,7 +45,7 @@ $articles = [
     "url" : "点击后跳转的链接",
     "picurl" : "图文消息的图片链接"  
 ];
-$weChat->imageText($articles);
+$weChat->imageText(array $articles);
 ```
 ## License
 

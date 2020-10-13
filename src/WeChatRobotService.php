@@ -2,6 +2,7 @@
 
 namespace Shawn\WeChatRobot;
 
+use Shawn\WeChatRobot\Messages\File;
 use Shawn\WeChatRobot\Messages\ImageText;
 use Shawn\WeChatRobot\Messages\Markdown;
 use Shawn\WeChatRobot\Messages\Message;
@@ -38,9 +39,9 @@ class WeChatRobotService
      */
     public function __construct($config, $atAll, $mobiles)
     {
-        $this->config = $config;
+        $this->config  = $config;
         $this->mobiles = $mobiles;
-        $this->atAll = $atAll;
+        $this->atAll   = $atAll;
 
         $this->client = $this->createClient($config);
 
@@ -55,7 +56,6 @@ class WeChatRobotService
         $client = new HttpClient($config);
         return $client;
     }
-
 
     /**
      * @param $content
@@ -86,6 +86,18 @@ class WeChatRobotService
     public function setMarkdownMessage($markdown)
     {
         $this->message = new Markdown($markdown);
+        $this->message->sendAt($this->mobiles, $this->atAll);
+        return $this;
+    }
+
+    /**
+     * @param $path
+     * @return $this
+     */
+    public function setFileMessage($path)
+    {
+        $this->client->getFileMediaId($path);
+        $this->message = new File($this->client->fileId);
         $this->message->sendAt($this->mobiles, $this->atAll);
         return $this;
     }
